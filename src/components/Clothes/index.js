@@ -2,19 +2,21 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import ClothesCards from "../ClothesCards";
+
+import styles from "./styles.module.css";
+
 const Clothes = () => {
   const [clothesItems, setClothesItems] = useState([]);
 
   const fetchClothes = async () => {
     try {
-      const response = await axios
-        .get("https://fakestoreapi.com/products")
-        .then((res) => {
-          return res.data;
-        });
-      setClothesItems(response);
+      const response = await axios.get("https://fakestoreapi.com/products");
+      const data = response.data;
+      setClothesItems(data);
+      console.log(clothesItems);
     } catch (err) {
-      alert("error");
+      alert(err);
     }
   };
 
@@ -22,7 +24,13 @@ const Clothes = () => {
     fetchClothes();
   }, []);
 
-  return <></>;
+  return (
+    <div className={styles.container}>
+      {clothesItems.map((clothesItem, index) => {
+        return <ClothesCards key={index} {...clothesItem} />;
+      })}
+    </div>
+  );
 };
 
 export default Clothes;
