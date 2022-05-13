@@ -1,29 +1,29 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { ClothesContext } from "../ClothesContext";
 
 const ClothesDetails = () => {
-  const [product, setProduct] = useState({});
-  let params = useParams();
+  const params = useParams();
+  const details = params.details;
 
-  const fetchProduct = async () => {
-    const response = await axios.get(
-      `https://fakestoreapi.com/products/${params.details}`
-    );
-    console.log(response);
-    const data = response.data;
-    setProduct(data);
-  };
+  const [clothesItems, setClothesItems, fetchClothes, fetchProduct] =
+    useContext(ClothesContext);
 
   useEffect(() => {
     fetchProduct();
   }, []);
 
+  // useEffect(() => {
+  //   fetchClothes();
+  // }, []);
+
   return (
-    <div>
-      {product.title}
-      <img src={product.image} alt="" />
-    </div>
+    <h1>hello {details}</h1>
+    // <div>
+    //   {product.title}
+    //   <img src={product.image} alt="" />
+    // </div>
   );
 };
 

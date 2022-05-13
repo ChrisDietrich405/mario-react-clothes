@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { ClothesContext } from "../ClothesContext";
-import axios from "axios";
 
 import ClothesCards from "../ClothesCards";
 
