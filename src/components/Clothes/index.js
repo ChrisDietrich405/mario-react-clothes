@@ -1,33 +1,28 @@
-import React from "react";
-import { useState, useEffect, useContext } from "react";
-import { ClothesContext } from "../ClothesContext";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-import ClothesCards from "../ClothesCards";
+import ClothesList from "../ClothesList";
 
-import styles from "./styles.module.css";
+import { api } from "../../services/api";
 
 const Clothes = () => {
-  const [clothesItems, setClothesItems] = useContext(ClothesContext);
+  const [clothesProducts, setClothesProducts] = useState([]);
 
-  const fetchClothes = async () => {
-    try {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      const data = response.data;
-      setClothesItems(data);
-    } catch (err) {
-      alert(err);
-    }
+  const fetchProducts = async () => {
+    const response = await api.get("/products");
+    const { data } = response;
+    setClothesProducts(data);
   };
 
   useEffect(() => {
-    fetchClothes();
+    fetchProducts();
   }, []);
 
   return (
-    <div className={styles.container}>
-      {clothesItems.map((clothesItem, index) => {
-        return <ClothesCards key={index} {...clothesItem} />;
+    <div>
+      {clothesProducts.map((clothesProduct) => {
+        return (
+          <ClothesList key={clothesProduct.id} title={clothesProduct.title} />
+        );
       })}
     </div>
   );

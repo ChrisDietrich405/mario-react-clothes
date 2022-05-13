@@ -1,21 +1,11 @@
-//https://fakestoreapi.com/products
+import React from "react";
 import Clothes from "./components/Clothes";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ClothesProvider } from "./components/ClothesContext";
-import ClothesDetails from "./components/ClothesDetails";
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <ClothesProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Clothes />} />
-            <Route path="/:details" element={<ClothesDetails />} />
-          </Routes>
-        </BrowserRouter>
-      </ClothesProvider>
+    <div>
+      <Clothes />
     </div>
   );
-}
+};
 
 export default App;
