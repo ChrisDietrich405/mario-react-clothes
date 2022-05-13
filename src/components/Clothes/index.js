@@ -8,13 +8,13 @@ import ClothesCards from "../ClothesCards";
 import styles from "./styles.module.css";
 
 const Clothes = () => {
-  const [clothesItems, setClothesItems] = useContext(ClothesContext);
+  const { clothesItems, setClothesItems } = useContext(ClothesContext);
+
   const fetchClothes = async () => {
     try {
       const response = await axios.get("https://fakestoreapi.com/products");
       const data = response.data;
       setClothesItems(data);
-      console.log(clothesItems);
     } catch (err) {
       alert(err);
     }
