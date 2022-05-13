@@ -9,7 +9,7 @@ export const ClothesProvider = ({ children }) => {
   console.log(children, clothesItems);
 
   return (
-    <ClothesContext.Provider value={{ clothesItems, setClothesItems }}>
+    <ClothesContext.Provider value={[clothesItems, setClothesItems]}>
       {children}
     </ClothesContext.Provider>
   );
