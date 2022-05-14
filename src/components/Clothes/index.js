@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import ClothesList from "../ClothesList";
+
+import { ClothesContext } from "../ClothesContext";
 
 import { api } from "../../services/api";
 
 import styles from "./styles.module.css";
 
 const Clothes = () => {
-  const [clothesProducts, setClothesProducts] = useState([]);
-
-  const fetchProducts = async () => {
-    const response = await api.get("/products");
-    const { data } = response;
-    setClothesProducts(data);
-  };
+  const { clothesProducts, fetchProducts } = useContext(ClothesContext);
 
   useEffect(() => {
     fetchProducts();
@@ -24,7 +20,7 @@ const Clothes = () => {
       {clothesProducts.map((clothesProduct) => {
         return (
           <ClothesList
-            key={clothesProduct.id}
+            id={clothesProduct.id}
             title={clothesProduct.title}
             image={clothesProduct.image}
             price={clothesProduct.price}

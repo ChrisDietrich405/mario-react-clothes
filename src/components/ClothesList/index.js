@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.css";
 
-const ClothesList = ({ title, image, price, description }) => {
-  const handleNavigateToDetailsPage = () => {};
+const ClothesList = ({ title, image, price, description, id }) => {
+  const navigate = useNavigate();
+
+  const handleNavigateToDetailsPage = () => {
+    navigate(`${id}`);
+  };
+
   return (
     <div className={styles.clothes_container}>
       <h4>{title}</h4>
