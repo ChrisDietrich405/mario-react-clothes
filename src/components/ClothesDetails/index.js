@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+
+import Cart from "../Cart";
 
 const ClothesDetails = () => {
   const [products, setProducts] = useState({});
+  const [cartProducts, setCartProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
   const params = useParams();
 
   const fetchDetails = async () => {
@@ -12,15 +19,46 @@ const ClothesDetails = () => {
     setProducts(data);
   };
 
+  const handleCartProducts = () => {
+    setCartProducts([
+      ...cartProducts,
+      {
+        ...products,
+      },
+    ]);
+    console.log(cartProducts);
+  };
+
+  const handleNavigateToHomePage = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     fetchDetails();
   }, []);
+
+  useEffect(() => {
+    const localStorageProducts = localStorage.getItem("cartProducts");
+    if (localStorageProducts) {
+      const productsArray = JSON.parse(localStorageProducts);
+      setCartProducts(productsArray);
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (loading === false) {
+      localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+    }
+  }, [cartProducts]);
 
   return (
     <div>
       <h2>{products.title}</h2>
       <img src={products.image} alt={products.title} />
-      <button>Add to cart</button>
+      <button onClick={handleCartProducts}>Add to cart</button>
+      <button onClick={handleNavigateToHomePage}>Return to home page</button>
+      <Cart cartProducts={cartProducts} />
     </div>
   );
 };
