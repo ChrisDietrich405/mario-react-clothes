@@ -10,6 +10,7 @@ export const ClothesProvider = ({ children }) => {
   const fetchProducts = async () => {
     const response = await api.get("/products");
     const { data } = response;
+    console.log(data);
     setClothesProducts(data);
   };
 

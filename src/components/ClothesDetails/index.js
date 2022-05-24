@@ -4,6 +4,8 @@ import { api } from "../../services/api";
 
 import Cart from "../Cart";
 
+import styles from "./styles.module.css";
+
 const ClothesDetails = () => {
   const [products, setProducts] = useState({});
   const [cartProducts, setCartProducts] = useState([]);
@@ -53,11 +55,13 @@ const ClothesDetails = () => {
   }, [cartProducts]);
 
   return (
-    <div>
-      <h2>{products.title}</h2>
-      <img src={products.image} alt={products.title} />
-      <button onClick={handleCartProducts}>Add to cart</button>
-      <button onClick={handleNavigateToHomePage}>Return to home page</button>
+    <div className={styles.product_container}>
+      <div>
+        <h2>{products.title}</h2>
+        <img src={products.image} alt={products.title} />
+        <button onClick={handleCartProducts}>Add to cart</button>
+        <button onClick={handleNavigateToHomePage}>Return to home page</button>
+      </div>
       <Cart cartProducts={cartProducts} />
     </div>
   );

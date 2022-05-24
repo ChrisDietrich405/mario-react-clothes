@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Clothes from "./components/Clothes";
 import ClothesDetails from "./components/ClothesDetails";
 import { ClothesProvider } from "./components/ClothesContext";
+import "./App.css";
+
 const App = () => {
   return (
     <ClothesProvider>

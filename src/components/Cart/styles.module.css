@@ -1,0 +1,20 @@
+.cart_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.list_container {
+  list-style: none;
+}
+
+.amount_container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28px;
+}
+
+.price_container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 35px;
+}
