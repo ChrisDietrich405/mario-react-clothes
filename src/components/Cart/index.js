@@ -1,14 +1,9 @@
 import React from "react";
-import { useEffect } from "react/cjs/react.production.min";
+import { useEffect } from "react";
 
 import styles from "./styles.module.css";
 
-const Cart = ({ cartProducts }) => {
-  console.log(cartProducts);
-  // const handleSummarizeProducts = () => {
-  //   const result = cartProducts.reduce((prevValue, currentValue) => {}, 0);
-  // };
-
+const Cart = ({ cartProducts, handleDeleteProduct }) => {
   const cartProductTotals = cartProducts.reduce(
     (total, cartProduct) => {
       const { price } = cartProduct;
@@ -21,17 +16,19 @@ const Cart = ({ cartProducts }) => {
       totalPrice: 0,
     }
   );
-  console.log(cartProductTotals);
-
-  // useEffect(() => {
-  //   cartProductTotals;
-  // }, []);
 
   return (
     <div className={styles.cart_container}>
       <ul className={styles.list_container}>
-        {cartProducts.map((cartProduct) => {
-          return <li>{cartProduct.title}</li>;
+        {cartProducts.map((cartProduct, index) => {
+          return (
+            <li>
+              {cartProduct.title}{" "}
+              <button onClick={() => handleDeleteProduct(cartProduct)}>
+                Delete
+              </button>
+            </li>
+          );
         })}
       </ul>
 
@@ -48,15 +45,3 @@ const Cart = ({ cartProducts }) => {
 };
 
 export default Cart;
-
-// const cartTotals = cart.reduce(
-//   (total, cartItem) => {
-//     const { amount, price } = cartItem;
-//     total.totalItems += amount;
-//     total.totalPrice += amount * price;
-//   },
-//   {
-//     totalItems: 0,
-//     totalPrice: 0,
-//   }
-// );

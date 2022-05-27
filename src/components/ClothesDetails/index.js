@@ -18,6 +18,7 @@ const ClothesDetails = () => {
   const fetchDetails = async () => {
     const response = await api.get(`/products/${params.details}`);
     const { data } = response;
+
     setProducts(data);
   };
 
@@ -26,6 +27,7 @@ const ClothesDetails = () => {
       ...cartProducts,
       {
         ...products,
+        index: cartProducts.length + 1,
       },
     ]);
     console.log(cartProducts);
@@ -34,6 +36,18 @@ const ClothesDetails = () => {
   const handleNavigateToHomePage = () => {
     navigate("/");
   };
+
+  const handleDeleteProduct = (cartProduct) => {
+    const updatedProducts = cartProducts.filter(
+      (product) => product.index !== cartProduct.index
+    );
+    setCartProducts(updatedProducts);
+  };
+
+  // const handleDeleteProduct = (index) => {
+  //   cartProducts.splice(index, 1);
+  //   setCartProducts([...cartProducts]);
+  // };
 
   useEffect(() => {
     fetchDetails();
@@ -62,7 +76,11 @@ const ClothesDetails = () => {
         <button onClick={handleCartProducts}>Add to cart</button>
         <button onClick={handleNavigateToHomePage}>Return to home page</button>
       </div>
-      <Cart cartProducts={cartProducts} />
+      <Cart
+        handleDeleteProduct={handleDeleteProduct}
+        cartProducts={cartProducts}
+        setCartProducts={setCartProducts}
+      />
     </div>
   );
 };
