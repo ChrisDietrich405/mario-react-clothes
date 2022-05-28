@@ -18,7 +18,6 @@ const ClothesDetails = () => {
   const fetchDetails = async () => {
     const response = await api.get(`/products/${params.details}`);
     const { data } = response;
-
     setProducts(data);
   };
 
@@ -30,7 +29,6 @@ const ClothesDetails = () => {
         index: cartProducts.length + 1,
       },
     ]);
-    console.log(cartProducts);
   };
 
   const handleNavigateToHomePage = () => {
@@ -43,6 +41,13 @@ const ClothesDetails = () => {
     );
     setCartProducts(updatedProducts);
   };
+
+  // const handleDeleteProduct = (cartProduct) => {
+  //   const updatedProducts = cartProducts.filter(
+  //     (product) => product.index !== cartProduct.index
+  //   );
+  //   setCartProducts(updatedProducts);
+  // };
 
   // const handleDeleteProduct = (index) => {
   //   cartProducts.splice(index, 1);
@@ -74,7 +79,7 @@ const ClothesDetails = () => {
         <h2>{products.title}</h2>
         <img src={products.image} alt={products.title} />
         <button onClick={handleCartProducts}>Add to cart</button>
-        <button onClick={handleNavigateToHomePage}>Return to home page</button>
+        <button onClick={handleNavigateToHomePage}>Home page</button>
       </div>
       <Cart
         handleDeleteProduct={handleDeleteProduct}

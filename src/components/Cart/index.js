@@ -4,6 +4,20 @@ import { useEffect } from "react";
 import styles from "./styles.module.css";
 
 const Cart = ({ cartProducts, handleDeleteProduct }) => {
+  const productsArray = [];
+  cartProducts.forEach((product) => {
+    const index = productsArray.findIndex(
+      (arrayProduct) => arrayProduct.id === product.id
+    );
+    if (index !== -1) {
+      productsArray[index].total++;
+      //index represents the position of the product
+    } else {
+      const newProduct = { ...product, total: 1 };
+      productsArray.push(newProduct);
+    }
+  });
+  console.log(productsArray);
   const cartProductTotals = cartProducts.reduce(
     (total, cartProduct) => {
       const { price } = cartProduct;
@@ -19,13 +33,40 @@ const Cart = ({ cartProducts, handleDeleteProduct }) => {
 
   return (
     <div className={styles.cart_container}>
-      <ul className={styles.list_container}>
+      {/* <ul className={styles.list_container}>
         {cartProducts.map((cartProduct, index) => {
           return (
             <li>
-              {cartProduct.title}{" "}
+              {cartProducts.title}{" "}
               <button onClick={() => handleDeleteProduct(cartProduct)}>
                 Delete
+              </button>
+            </li>
+          );
+        })}
+      </ul> */}
+
+      <ul className={styles.list_container}>
+        {productsArray.map((arrayProduct) => {
+          return (
+            <li>
+              {arrayProduct.total} - {arrayProduct.title}{" "}
+              <button onClick={() => handleDeleteProduct(arrayProduct)}>
+                Delete{" "}
+                <ul className={styles.list_container}>
+                  {cartProducts.map((cartProduct, index) => {
+                    return (
+                      <li>
+                        {cartProduct.title}{" "}
+                        <button
+                          onClick={() => handleDeleteProduct(cartProduct)}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
               </button>
             </li>
           );
@@ -38,7 +79,7 @@ const Cart = ({ cartProducts, handleDeleteProduct }) => {
       </div>
       <div className={styles.price_container}>
         <div>Total Price:</div>
-        <div> ${cartProductTotals.totalPrice}</div>
+        <div> ${cartProductTotals.totalPrice.toFixed(2)}</div>
       </div>
     </div>
   );
